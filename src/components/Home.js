@@ -35,7 +35,7 @@ const handleCreateUser = (e) => {
     e.preventDefault()
     props.addUser(newUser || user);
     document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
-       navigate("/dashboard")
+       navigate("/foodie-app-react/dashboard")
     };
 
 const handleLogin = () => {
