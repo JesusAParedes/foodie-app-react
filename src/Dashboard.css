@@ -1,0 +1,11 @@
+h3 {
+    margin-top: 7%;
+}
+
+
+form {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+
