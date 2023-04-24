@@ -127,9 +127,7 @@ const Dashboard = (props) => {
                             >Favorite Item</button>
                         </form>
                 </Box>
-                <PopUp 
-                showRestaurants={showRestaurants}
-                />
+                
                 {showRestaurants && restaurants.map((location, idx) => (
                     <div>
             <p key={idx}>
