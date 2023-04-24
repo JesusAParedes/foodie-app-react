@@ -15,6 +15,10 @@ const foodItems = (state = foodItems, action) => {
     switch(action.type) {
         case "ADD_FOOD":
             return [...state, action.value];
+        case "REMOVE_FOOD":
+            const food = [...state];
+            food.splice(action.value, 1)
+            return food;
         default:
         return state;
     }

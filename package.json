@@ -1,6 +1,6 @@
 {
   "name": "foodie-app-react",
-  "homepages": "https://jesusaparedes.github.io/foodie-app-react/",
+  "homepage": "https://jesusaparedes.github.io/foodie-app-react/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

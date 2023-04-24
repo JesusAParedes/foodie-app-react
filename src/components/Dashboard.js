@@ -15,14 +15,16 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StarRating from "./StarRating";
 
+import FavoriteList from "./FavoriteList";
+
 const Dashboard = (props) => {
     const [food, setFood] = useState({
         food_name: "",
         restaurant: ""});
     const [restaurants, setRestaurants] = useState({});
     const [query, setQuery] = useState('');
+    const [showRestaurants, setShowRestaurants] = useState(false);
 
-    console.log(props.user)
     const handleTextChange = (e) => {
         const { name, value } = e.target;
         setFood({...food, [name]: value})
@@ -34,58 +36,72 @@ const Dashboard = (props) => {
         setFood({
             food_name: "",
             restaurant: ""
-        })
-    }
+        });
+    };
+
+    const handleQuery = (e) => {
+        setQuery(e.target.value);
+    };
+
+    const handlePresets = (e, idx) => {
+        e.preventDefault();
+        props.addFood(restaurants.find((location,index) => {
+            if(idx === index) {
+                const newList = location;
+                Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
+                return newList;
+            }}))};
 
     const fetchRestaurants = async () => {
         const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/search';
-        
-       axios.get(url, {
-        params: {
-            query: 'tacos',
-            offset: '1',
-            number: '20',
-        },
-        headers: {
-            'X-RapidAPI-Key': 'c42a0f305emsh3e195a8ca5e4f70p1a4c75jsn478fb0bab10e',
-'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-        }
-       })
-       .then(res => console.log(res.data.menuItems))
-        
-    }
+        axios.get(url, {
+            params: {
+                query: query,
+                offset: '1',
+                number: 15,
+            },
+             headers: {
+                'X-RapidAPI-Key': 'c42a0f305emsh3e195a8ca5e4f70p1a4c75jsn478fb0bab10e',
+                'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+            }})
+       .then(res => {console.log(res.data.menuItems);
+        setRestaurants(res.data.menuItems);
+        setShowRestaurants(true)});
+    };
 
     const handleAddRestaurants = (e) => {
-        e.preventDefault()
-        
-        setRestaurants(fetchRestaurants)
+        e.preventDefault();
+        fetchRestaurants();
+    };
 
-    }
-    
-    console.log(restaurants)
+    const handleDelete = (e, idx) => {
+        e.preventDefault();
+        console.log(idx);
+        console.log(props.removeFood(idx))
+        
+    };
+
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
                 <Box 
                 sx={{border: "1px solid #6B37C4", width: "fit-content",}}>
-                    <form>
-                            Search Food Items
+                    <form
+                    onSubmit={handleAddRestaurants}>
+                            Search By
                             <TextField
+                            onChange={handleQuery}
                             name="food_name"
                             size="small"
-                            label="Food Name"
+                            label="Food Name or Restaurant"
                             type="text"
                             value={query}
                             />
-                            <TextField
-                            name="restaurant"
-                            size="small"
-                            label="Restaurant"
-                            type="text"
-                            />
+
                             <button
-                            onClick={handleAddRestaurants}>Button</button>
+                            >Search</button>
                         </form>
+                        
                         <form
                         onSubmit={handleAddFood}>
                             Add Food Item to Favorites
@@ -111,6 +127,16 @@ const Dashboard = (props) => {
                             >Favorite Item</button>
                         </form>
                 </Box>
+                {showRestaurants && restaurants.map((location, idx) => (
+                    <div>
+            <p key={idx}>
+                {location.title}, {location.restaurantChain}</p>
+                <button
+                type='submit'
+                onClick={(e) => {handlePresets(e, idx)}}>Add to Favorites</button>
+                </div>
+                
+        ))}
                 
                     <Table>
                         <TableHead>
@@ -140,10 +166,10 @@ const Dashboard = (props) => {
                                         {<StarRating/>}
                                     </TableCell>
                                     <TableCell>
-                                        <DeleteOutlineOutlinedIcon/> 
+                                        <DeleteOutlineOutlinedIcon onClick={(e) => handleDelete(e, idx)}/>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                                ))}
                         </TableBody>
                     </Table>
         </Container>
