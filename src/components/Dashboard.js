@@ -15,7 +15,7 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StarRating from "./StarRating";
 
-import FavoriteList from "./FavoriteList";
+import PopUp from "./Popup";
 
 const Dashboard = (props) => {
     const [food, setFood] = useState({
@@ -127,6 +127,9 @@ const Dashboard = (props) => {
                             >Favorite Item</button>
                         </form>
                 </Box>
+                <PopUp 
+                showRestaurants={showRestaurants}
+                />
                 {showRestaurants && restaurants.map((location, idx) => (
                     <div>
             <p key={idx}>
