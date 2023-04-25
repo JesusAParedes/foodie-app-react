@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/foodie-app-react/static/css/main.a1875bb6.css",
-    "main.js": "/foodie-app-react/static/js/main.81db5ec0.js",
+    "main.css": "/foodie-app-react/static/css/main.be804370.css",
+    "main.js": "/foodie-app-react/static/js/main.1047841e.js",
     "static/js/787.b2ce6564.chunk.js": "/foodie-app-react/static/js/787.b2ce6564.chunk.js",
     "index.html": "/foodie-app-react/index.html",
-    "main.a1875bb6.css.map": "/foodie-app-react/static/css/main.a1875bb6.css.map",
-    "main.81db5ec0.js.map": "/foodie-app-react/static/js/main.81db5ec0.js.map",
+    "main.be804370.css.map": "/foodie-app-react/static/css/main.be804370.css.map",
+    "main.1047841e.js.map": "/foodie-app-react/static/js/main.1047841e.js.map",
     "787.b2ce6564.chunk.js.map": "/foodie-app-react/static/js/787.b2ce6564.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1875bb6.css",
-    "static/js/main.81db5ec0.js"
+    "static/css/main.be804370.css",
+    "static/js/main.1047841e.js"
   ]
 }
