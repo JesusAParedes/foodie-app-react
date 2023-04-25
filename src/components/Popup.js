@@ -1,15 +1,14 @@
 import React from 'react';
 
-import '../Popup.css'
+import '../stylings/Popup.css'
 
 import {
     Dialog,
-    DialogContent,
     DialogTitle
 } from '@mui/material';
 
 const PopUp = (props) => {
-    const { showRestaurants, restaurants, open, close } = props;
+    const { restaurants, open, close } = props;
 
     const handleClose = (e, idx) => {
         close(idx);

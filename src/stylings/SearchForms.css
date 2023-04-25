@@ -1,0 +1,23 @@
+.box {
+    border: 1px solid #6B37C4;
+    width: fit-content;
+    position: relative;
+    left: 72%;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.textBox {
+    margin: 20%;
+}
+
+.searchButton {
+    margin: 2%;
+    border-radius: 5px;
+    background-color: #BF5BDD;
+    padding: 4%;
+    color: white;
+}

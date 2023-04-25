@@ -1,21 +1,20 @@
-import { React, useState, useEffect } from "react";
-import '../Dashboard.css'
+import { React, useState } from "react";
+import '../stylings/Dashboard.css'
 import axios from "axios";
 
 import {
-    Box,
     Container,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    TextField
 } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StarRating from "./StarRating";
 
 import PopUp from "./Popup";
+import SearchForms from "./SearchForms";
 
 const Dashboard = (props) => {
     const [food, setFood] = useState({
@@ -29,10 +28,6 @@ const Dashboard = (props) => {
         const { name, value } = e.target;
         setFood({...food, [name]: value})
     };
-
-    const s = () => {
-        
-    }
 
     const handleAddFood = (e) => {
         e.preventDefault();
@@ -70,7 +65,7 @@ const Dashboard = (props) => {
                 'X-RapidAPI-Key': 'c42a0f305emsh3e195a8ca5e4f70p1a4c75jsn478fb0bab10e',
                 'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
             }})
-       .then(res => {console.log(res.data.menuItems);
+       .then(res => {
         setRestaurants(res.data.menuItems);
         setShowRestaurants(true)});
     };
@@ -88,92 +83,57 @@ const Dashboard = (props) => {
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
-                <Box 
-                sx={{border: "1px solid #6B37C4", width: "fit-content",}}>
-                    <form
-                    onSubmit={handleAddRestaurants}>
-                            Search By
-                            <TextField
-                            onChange={handleQuery}
-                            name="food_name"
-                            size="small"
-                            label="Food Name or Restaurant"
-                            type="text"
-                            value={query}
-                            />
 
-                            <button
-                            >Search</button>
-                        </form>
-                        
-                        <form
-                        onSubmit={handleAddFood}>
-                            Add Food Item to Favorites
-                            <TextField
-                            onChange={handleTextChange}
-                            name="food_name"
-                            size='small'
-                            label='Food Name'
-                            value={food.food_name}
-                            type="text"
-                            />
-                            <TextField
-                            onChange={handleTextChange}
-                            name="restaurant"
-                            size='small'
-                            label="Restaurant"
-                            value={food.restaurant}
-                            type="text"
-                            />
-                            <button
-                            type="submit"
-                            
-                            >Favorite Item</button>
-                        </form>
-                </Box>
-                    {showRestaurants && <PopUp 
-                    showRestaurants={showRestaurants}
-                    open={fetchRestaurants}
-                    restaurants={restaurants}
-                    close={handlePresets}/>}
+            <SearchForms 
+            food={food}
+            handleAddRestaurants={handleAddRestaurants}
+            handleQuery={handleQuery}
+            query={query}
+            handleAddFood={handleAddFood}
+            handleTextChange={handleTextChange}
+            />
                 
-                              
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    Food Name
-                                </TableCell>
-                                <TableCell>
-                                    Restaurant
-                                </TableCell>
-                                <TableCell>
-                                    Rate Item
-                                </TableCell>
-                                <TableCell>Remove Item</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {props.foodItems.map((food,idx) => (
-                                <TableRow key={idx}>
-                                    <TableCell>
-                                        {food.food_name}
-                                    </TableCell>
-                                    <TableCell>
-                                        {food.restaurant}
-                                    </TableCell>
-                                    <TableCell>
-                                        {<StarRating/>}
-                                    </TableCell>
-                                    <TableCell>
-                                        <DeleteOutlineOutlinedIcon onClick={(e) => handleDelete(e, idx)}/>
-                                    </TableCell>
-                                </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
-        </Container>
-        
+            {showRestaurants && <PopUp 
+            showRestaurants={showRestaurants}
+            open={fetchRestaurants}
+            restaurants={restaurants}
+            close={handlePresets}/>}
+                        
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
+                            Food Name
+                        </TableCell>
+                        <TableCell>
+                            Restaurant
+                        </TableCell>
+                        <TableCell>
+                            Rate Item
+                        </TableCell>
+                        <TableCell>Remove Item</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.foodItems.map((food,idx) => (
+                        <TableRow key={idx}>
+                            <TableCell>
+                                {food.food_name}
+                            </TableCell>
+                            <TableCell>
+                                {food.restaurant}
+                            </TableCell>
+                            <TableCell>
+                                {<StarRating/>}
+                            </TableCell>
+                            <TableCell>
+                                <DeleteOutlineOutlinedIcon onClick={(e) => handleDelete(e, idx)}/>
+                            </TableCell>
+                        </TableRow>
+                        ))}
+                </TableBody>
+            </Table>
+        </Container> 
     )
 }
 

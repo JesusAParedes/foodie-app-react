@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import '../StarRating.css'
+import '../stylings/StarRating.css'
 import StarPurple500SharpIcon from '@mui/icons-material/StarPurple500Sharp';
 
 const StarRating = () => {

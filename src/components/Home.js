@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { TextField, Button, Container } from "@mui/material";
 import { useNavigate } from 'react-router';
 import cookie from 'cookie';
-import '../Home.css'
+import '../stylings/Home.css'
 
 const Home = (props) => {
     
