@@ -1,18 +1,37 @@
 import React from 'react';
 
+import '../Popup.css'
+
+import {
+    Dialog,
+    DialogContent,
+    DialogTitle
+} from '@mui/material';
+
 const PopUp = (props) => {
+    const { showRestaurants, restaurants, open, close } = props;
+
+    const handleClose = (e, idx) => {
+        close(idx);
+    }
     
     return (
-        props.showRestaurants && props.restaurants.map((location, idx) => (
-            <div>
-    <p key={idx}>
-        
-        {location.title}, {location.restaurantChain}</p>
+        <Dialog open={open} onClose={handleClose} >
+            <DialogTitle>Food Options</DialogTitle>
+        {restaurants.map((location, idx) => (
+            <div className='PopupDiv'>
+                <p key={idx}
+                className='individualTitle'>
+                {location.title}</p>
+                <p
+                className='individualTitle'>{location.restaurantChain}</p>
         <button
         type='submit'
-        onClick={(e) => {props.handlePresets(e, idx)}}>Add to Favorites</button>
+        onClick={(e) => {close(e, idx)}}
+        className='PopupButton'>Add to Favorites</button>
         </div>
-    ))
+    ))}
+    </Dialog>
     )
 };
 

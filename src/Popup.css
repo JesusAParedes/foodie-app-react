@@ -1,0 +1,19 @@
+.PopupDiv {
+    margin: 0% 3%;
+    border-top: 2px dashed #40A34A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.individualTitle {
+    margin: 0% 2%;
+}
+
+.PopupButton {
+    margin: 2%;
+    border-radius: 5px;
+    background-color: #BF5BDD;
+    padding: 4%;
+    color: white;
+}

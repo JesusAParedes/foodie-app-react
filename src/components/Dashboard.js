@@ -28,6 +28,10 @@ const Dashboard = (props) => {
     const handleTextChange = (e) => {
         const { name, value } = e.target;
         setFood({...food, [name]: value})
+    };
+
+    const s = () => {
+        
     }
 
     const handleAddFood = (e) => {
@@ -50,7 +54,9 @@ const Dashboard = (props) => {
                 const newList = location;
                 Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
                 return newList;
-            }}))};
+            }}))
+        setShowRestaurants(false)
+        };
 
     const fetchRestaurants = async () => {
         const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/search';
@@ -76,9 +82,7 @@ const Dashboard = (props) => {
 
     const handleDelete = (e, idx) => {
         e.preventDefault();
-        console.log(idx);
-        console.log(props.removeFood(idx))
-        
+        props.removeFood(idx)
     };
 
     return (
@@ -127,18 +131,13 @@ const Dashboard = (props) => {
                             >Favorite Item</button>
                         </form>
                 </Box>
+                    {showRestaurants && <PopUp 
+                    showRestaurants={showRestaurants}
+                    open={fetchRestaurants}
+                    restaurants={restaurants}
+                    close={handlePresets}/>}
                 
-                {showRestaurants && restaurants.map((location, idx) => (
-                    <div>
-            <p key={idx}>
-                {location.title}, {location.restaurantChain}</p>
-                <button
-                type='submit'
-                onClick={(e) => {handlePresets(e, idx)}}>Add to Favorites</button>
-                </div>
-                
-        ))}
-                
+                              
                     <Table>
                         <TableHead>
                             <TableRow>
