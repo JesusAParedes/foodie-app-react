@@ -1,8 +1,12 @@
 import { React, useState } from 'react';
-import { TextField, Button, Container } from "@mui/material";
 import { useNavigate } from 'react-router';
+
 import cookie from 'cookie';
-import '../stylings/Home.css'
+
+import '../stylings/Home.css';
+
+import Login from './Login';
+import SignUp from './SignUp';
 
 const Home = (props) => {
     
@@ -17,12 +21,23 @@ const [newUser, setNewUser] = useState({
 const [user, setUser] = useState({
     username: '',
     password: ''
-})
+});
+
+const [ homepage, setHomepage ] = useState(false);
 
 const navigate = useNavigate();
 
+const handlePage = (e) => {
+    e.preventDefault();
+    setHomepage(true);
+}
+
 const handleNewAccount = (e) => {
         const { name, value } = e.target;
+        // const newList = location;
+        // Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
+        // return newList;
+        console.log(name)
         setNewUser({...newUser, [name]: value})
 };
 
@@ -45,82 +60,24 @@ const handleLogin = () => {
 
     return (
         <div className='Home'>
-                <Container style={{display: "flex", alignItems: "flex-start"}}>
-                    <form 
-                    className="form"
-                    name= "login"
-                    onSubmit={handleLogin}>
-                        <TextField
-                        onChange={handleUser}
-                        value={user.username}
-                        name="username"
-                        label="Username"
-                        type="text"
-                        />
-                        <TextField
-                        onChange={handleUser}
-                        value={user.password}
-                        name="password"
-                        label="Password"
-                        type="password"
-                        />
-                            <Button
-                            type="submit"
-                            className="button"
-                            variant="contained"
-                            >Login
-                            </Button>
-                        </form>
-
-                        <form 
-                        className='form'
-                        name="createAccount"
-                        onSubmit={handleCreateUser}>
-                        <TextField
-                        onChange={handleNewAccount}
-                        value={newUser.first_name}
-                        name="first_name"
-                        label="First Name"
-                        type="text" 
-                        />
-                        <TextField
-                        onChange={handleNewAccount}
-                        value={newUser.last_name}
-                        name="last_name"
-                        label="Last Name"
-                        type="text" 
-                        />
-                        <TextField
-                        onChange={handleNewAccount}
-                        name="email"
-                        value={newUser.email}
-                        label="E-mail"
-                        type="text" 
-                        />
-                        <TextField
-                        onChange={handleNewAccount}
-                        name="NewUsername"
-                        value={newUser.username}
-                        label="Username"
-                        type="text" 
-                        />
-                        <TextField
-                        onChange={handleNewAccount}
-                        name="NewPassword"
-                        value={newUser.password}
-                        label="Password"
-                        type="password" 
-                        />
-                            <Button
-                            type="submit"
-                            className="button"
-                            variant="contained"
-                            >Create Account
-                            </Button>
-                        </form>
-                </Container>
+                {homepage === false ?
+                <div> 
+                <Login 
+                handleLogin={handleLogin}
+                handleUser={handleUser}
+                user={user}/> <section className="login">
+                <p >New User?
+                  <button 
+                  type='submit'
+                  onClick={handlePage}>Click here to create Account.</button> 
+                  </p>
+                </section> </div> : 
+                <SignUp 
+                handleCreateUser={handleCreateUser}
+                handleNewAccount={handleNewAccount}
+                newUser={newUser}/>}               
         </div>
-    )
-}
+    );
+};
 
 export default Home;

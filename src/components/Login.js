@@ -1,37 +1,45 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+
+
 import { TextField, Button, Container } from "@mui/material";
-import cookie from 'cookie';
 
+import '../stylings/Login.css'
 
-const Login = () => {
-  const navigate = useNavigate();
-    
+const Login = (props) => {
+
+  const { handleLogin, handleUser, user, newUser } = props;
+
     return (
-        <div className="App">
-      <header className="App-header">
-        <Container>
-            <form className="login">
-            <TextField
-            name="username"
-            label="Username"
-            type="text" />
-            <TextField
-            name="password"
-            label="Password"
-            type="password" />
-            <Button
-            type="submit"
-            className="login-button"
-            variant="contained"
-            color="primary" >
-                Login
-            </Button>
-            </form>
-            
-        </Container>
-      </header>
-    </div>
+      <div>
+      <Container style={{display: "flex", alignItems: "flex-start"}}>
+      <form 
+          className="form"
+          name= "login"
+          onSubmit={handleLogin}>
+              <TextField
+              onChange={handleUser}
+              value={user.username}
+              name="username"
+              label="Username"
+              type="text"
+              />
+              <TextField
+              onChange={handleUser}
+              value={user.password}
+              name="password"
+              label="Password"
+              type="password"
+              />
+                  <Button
+                  type="submit"
+                  className="homeButton"
+                  variant="contained"
+                  style={{backgroundColor: '#BF5BDD'}}
+                  >Login
+                  </Button>
+              </form>
+              </Container>
+              </div>
     )
 }
 

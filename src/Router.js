@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import cookie from 'cookie';
 
 //import components into here as I build my app and put them in the router function
-import Login from './components/Login';
+import SignUp from './components/SignUp';
 import Home from './containers/Home';
 import Dashboard from './containers/Dashboard'
 
@@ -26,7 +26,7 @@ const Router = () => {
     return (
         <Routes>
             <Route path="/foodie-app-react" element={<Home/>} />
-            <Route path="/foodie-app-react/login" element={<Login/>} />
+            <Route path="/foodie-app-react/signup" element={<SignUp/>} />
             <Route path="/foodie-app-react/dashboard" element={<ProtectedRoute component={ Dashboard }/>} />
         </Routes>
     );

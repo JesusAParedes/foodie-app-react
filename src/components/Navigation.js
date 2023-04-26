@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuIcon, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material/';
+import { AppBar, Button, Container, IconButton, Toolbar,  Typography } from '@mui/material/';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
@@ -12,9 +13,7 @@ const navTheme = createTheme({
   palette: {
     primary: {
       main: '#40A34A',
-    }
-  }
-})
+    }}});
 
 const NavBar = () => {
 
@@ -50,6 +49,11 @@ const NavBar = () => {
           >
           <AccountCircle />
           </IconButton>
+          <Button color="inherit">
+            <Link to='/foodie-app-react' 
+            style={{textDecoration: 'none', color: 'white'}}>
+              LOGOUT</Link>
+            </Button>
                 </Toolbar>
             </Container>
         </AppBar>

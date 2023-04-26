@@ -5,16 +5,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
-
-.form {
-    display: flex;
-    flex-direction: column;
-    margin: 50px auto;
-    gap: 10px;
-    align-items: center;
-  };
-
-.button {
-    background-color: #BF5BDD;
-  }
   
+.login {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+}

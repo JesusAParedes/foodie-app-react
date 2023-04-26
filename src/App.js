@@ -14,7 +14,6 @@ function App() {
     <BrowserRouter>
     <Navigation />
     <Router/>
-    {/* <Footer /> */}
     </BrowserRouter>
     </Provider>
   );

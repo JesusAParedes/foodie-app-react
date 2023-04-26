@@ -79,10 +79,10 @@ const Dashboard = (props) => {
         e.preventDefault();
         props.removeFood(idx)
     };
-
+console.log(props.user)
     return (
         <Container>
-            <h3>Come in, {props.user.first_name}</h3>
+            <h3>Come in, {props.user.username}</h3>
 
             <SearchForms 
             food={food}

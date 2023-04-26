@@ -24,7 +24,7 @@ const SearchForms = (props) => {
                             label="Food Name or Restaurant"
                             type="text"
                             value={query}
-                            className='textBox'
+                            sx={{margin: '3% 0% 0% 0%'}}
                             />
 
                             <button
@@ -42,7 +42,7 @@ const SearchForms = (props) => {
                             label='Food Name'
                             value={food.food_name}
                             type="text"
-                            className='textBox'
+                            sx={{margin: '3% 0% 0% 0%'}}
                             />
                             <TextField
                             onChange={handleTextChange}
@@ -51,7 +51,7 @@ const SearchForms = (props) => {
                             label="Restaurant"
                             value={food.restaurant}
                             type="text"
-                            className='textBox'
+                            sx={{margin: '3% 0% 0% 0%'}}
                             />
                             <button
                             type="submit"
