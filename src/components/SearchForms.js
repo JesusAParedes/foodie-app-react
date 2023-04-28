@@ -55,7 +55,7 @@ const SearchForms = (props) => {
                             />
                             <button
                             type="submit"
-                            className='searchButton'>Favorite Item</button>
+                            className='searchButton'>Favorite My Food</button>
                         </form>
                 </Box>
     );

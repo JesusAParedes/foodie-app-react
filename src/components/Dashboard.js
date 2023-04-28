@@ -53,6 +53,7 @@ const Dashboard = (props) => {
         setShowRestaurants(false)
         };
 
+
     const fetchRestaurants = async () => {
         const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/search';
         axios.get(url, {
@@ -95,6 +96,7 @@ console.log(props.user)
                 
             {showRestaurants && <PopUp 
             showRestaurants={showRestaurants}
+            setShowRestaurants={setShowRestaurants}
             open={fetchRestaurants}
             restaurants={restaurants}
             close={handlePresets}/>}

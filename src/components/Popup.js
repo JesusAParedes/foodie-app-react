@@ -7,16 +7,20 @@ import {
     DialogTitle
 } from '@mui/material';
 
-const PopUp = (props) => {
-    const { restaurants, open, close } = props;
+import CloseIcon from '@mui/icons-material/Close';
 
-    const handleClose = (e, idx) => {
-        close(idx);
+const PopUp = (props) => {
+    const { setShowRestaurants, restaurants, open, close } = props;
+
+    const handleClose = (e) => {
+        setShowRestaurants(false)
     }
     
     return (
         <Dialog open={open} onClose={handleClose} >
-            <DialogTitle>Food Options</DialogTitle>
+            <DialogTitle className='FoodTitle'>Food Options 
+                <CloseIcon onClick={handleClose}/>
+            </DialogTitle>
         {restaurants.map((location, idx) => (
             <div className='PopupDiv'>
                 <p key={idx}

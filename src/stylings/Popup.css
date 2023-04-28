@@ -1,3 +1,7 @@
+.FoodTitle {
+    display: flex;
+    justify-content: space-between;
+}
 .PopupDiv {
     margin: 0% 3%;
     border-top: 2px dashed #40A34A;

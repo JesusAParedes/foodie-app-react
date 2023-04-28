@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import cookie from 'cookie';
@@ -26,6 +26,14 @@ const [user, setUser] = useState({
 const [ homepage, setHomepage ] = useState(false);
 
 const navigate = useNavigate();
+
+ useEffect(
+    () => {
+        fetch("http://localhost:4001/users")
+        .then(res => res.json())
+        .then(data => console.log(data))
+    }
+ )
 
 const handlePage = (e) => {
     e.preventDefault();
@@ -57,6 +65,7 @@ const handleLogin = () => {
         document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
         navigate("/foodie-app-react/dashboard")
     };
+
 
     return (
         <div className='Home'>
