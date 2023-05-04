@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 import cookie from 'cookie';
 
@@ -32,7 +33,7 @@ const navigate = useNavigate();
         fetch("http://localhost:4001/users")
         .then(res => res.json())
         .then(data => console.log(data))
-    }
+    }, []
  )
 
 const handlePage = (e) => {
@@ -62,6 +63,10 @@ const handleCreateUser = (e) => {
     };
 
 const handleLogin = () => {
+
+    axios.get("http://localhost:4001/users/:id")
+    .then(response => console.log(response.data))
+    
         document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
         navigate("/foodie-app-react/dashboard")
     };
