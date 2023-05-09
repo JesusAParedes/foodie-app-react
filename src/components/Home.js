@@ -62,13 +62,18 @@ const handleCreateUser = (e) => {
        navigate("/foodie-app-react/dashboard")
     };
 
-const handleLogin = () => {
-
-    axios.get("http://localhost:4001/users/:id")
-    .then(response => console.log(response.data))
-    
-        document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
+const handleLogin = (e) => {
+    e.preventDefault()
+    axios.post("http://localhost:4001/login", {
+        username: user.username,
+        password: user.password
+    })
+    .then(response => {
+        document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
         navigate("/foodie-app-react/dashboard")
+    })
+    
+        
     };
 
 
