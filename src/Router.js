@@ -10,7 +10,7 @@ import Dashboard from './containers/Dashboard'
 //write an actual Authorize function that uses cookies
 const checkAuth = () => {
     const cookies = cookie.parse(document.cookie);
-    return cookies['loggedIn'] ? true: false;
+    return cookies['token'] ? true: false;
 };
 
 const ProtectedRoute = (props) => {

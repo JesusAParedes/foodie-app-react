@@ -38,14 +38,14 @@ const SignUp = (props) => {
               />
               <TextField
               onChange={handleNewAccount}
-              name="NewUsername"
+              name="Username"
               value={newUser.username}
               label="Username"
               type="text" 
               />
               <TextField
               onChange={handleNewAccount}
-              name="NewPassword"
+              name="Password"
               value={newUser.password}
               label="Password"
               type="password" 
