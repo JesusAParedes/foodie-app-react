@@ -50,6 +50,11 @@ const Dashboard = (props) => {
                 Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
                 return newList;
             }}))
+
+            axios.post("http://localhost:4001/food", {
+                food_name: "",
+                restaurants: ""
+            })
         setShowRestaurants(false)
         };
 

@@ -70,6 +70,7 @@ const handleCreateUser = (e) => {
        })
        .then(response => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
+        navigate("/foodie-app-react/dashboard")
        })
 
     };
