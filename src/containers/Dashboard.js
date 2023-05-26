@@ -6,7 +6,8 @@ const mapStatetoProps = (state) => {
     return {
         user: state.user,
         foodItems: state.foodItems,
-        restaurants: state.restaurants
+        restaurants: state.restaurants,
+        token: state.token
     }
 };
 

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import '../stylings/Dashboard.css'
 import axios from "axios";
 
@@ -48,15 +48,23 @@ const Dashboard = (props) => {
             if(idx === index) {
                 const newList = location;
                 Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
+                backendAddFood(newList);
+                console.log(newList)
                 return newList;
             }}))
-
-            axios.post("http://localhost:4001/food", {
-                food_name: "",
-                restaurants: ""
-            })
+           
         setShowRestaurants(false)
         };
+
+    
+    const backendAddFood = (foodItem) => {
+        console.log(foodItem)
+        axios.post("http://localhost:4001/food", {
+                food_name: foodItem.title,
+                rating: foodItem.rating
+            })
+            .then(response => console.log(response))
+    }
 
 
     const fetchRestaurants = async () => {
@@ -72,6 +80,7 @@ const Dashboard = (props) => {
                 'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
             }})
        .then(res => {
+        console.log(res.data.menuItems)
         setRestaurants(res.data.menuItems);
         setShowRestaurants(true)});
     };

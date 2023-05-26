@@ -20,11 +20,15 @@ const [newUser, setNewUser] = useState({
     });
 
 const [user, setUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
     username: '',
     password: ''
 });
 
 const [ homepage, setHomepage ] = useState(false);
+const [ token, setToken ] = useState('')
 
 const navigate = useNavigate();
 
@@ -57,7 +61,7 @@ const handleUser = (e) => {
 
 const handleCreateUser = (e) => {
     e.preventDefault()
-    props.addUser(newUser || user);
+    
     // document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
     //    navigate("/foodie-app-react/dashboard")
 
@@ -70,6 +74,7 @@ const handleCreateUser = (e) => {
        })
        .then(response => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
+        props.addUser(newUser.first_name)
         navigate("/foodie-app-react/dashboard")
        })
 
@@ -83,10 +88,10 @@ const handleLogin = (e) => {
     })
     .then(response => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
+        setToken(response.data.token);
         navigate("/foodie-app-react/dashboard")
     })
     
-        
     };
 
 

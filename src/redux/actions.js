@@ -1,5 +1,3 @@
-
-
 export const addUser = (user) => {
     return {
         type: "ADD_USER",
@@ -47,3 +45,10 @@ export const fetchRestaurants = () => {
         });
     };
 };
+
+export const backendFood = () => {
+    return {
+        type: "CHECK_TOKEN",
+        value: token
+    };
+}

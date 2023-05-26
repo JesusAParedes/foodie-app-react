@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux';
 
-
-
 const user = (state = user, action) => {
     switch(action.type) {
         case "ADD_USER":
             return {...action.value, isLoggedIn: true};
         default:
-        return state;
+            return state;
     }
 };
 
@@ -20,7 +18,7 @@ const foodItems = (state = foodItems, action) => {
             food.splice(action.value, 1)
             return food;
         default:
-        return state;
+            return state;
     }
 };
 
@@ -29,8 +27,17 @@ const restaurants = (state = [], action) => {
         case "FETCH_RESTAURANTS":
             return action.value;
         default:
-        return state;
+            return state;
     }
 };
 
-export default combineReducers({ user, foodItems, restaurants });
+const token = (state = token, action) => {
+    switch(action.type) {
+        case "CHECK_TOKEN":
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({ user, foodItems, restaurants, token });

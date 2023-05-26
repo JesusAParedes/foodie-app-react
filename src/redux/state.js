@@ -5,9 +5,9 @@ export default {
             first_name: '',
             last_name: '',
             email: '',
-            username: '',
-            password: ''
+            username: ''
         }
 ,
-    restaurants: []
+    restaurants: [],
+    token: ''
 };
