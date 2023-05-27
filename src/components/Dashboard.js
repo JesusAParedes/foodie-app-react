@@ -12,7 +12,10 @@ import {
 } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StarRating from "./StarRating";
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 
+import EditPopup from "./EditPopup";
 import PopUp from "./Popup";
 import SearchForms from "./SearchForms";
 
@@ -24,11 +27,16 @@ const Dashboard = (props) => {
     const [query, setQuery] = useState('');
     const [showRestaurants, setShowRestaurants] = useState(false);
 
+    const [ foodChange, setFoodChange ] = useState('');
+    const [ restaurantChange, setRestaurantChange ] = useState('')
+    const [ changeInputs, setChangeInputs ] = useState(true);
+
     const handleTextChange = (e) => {
         const { name, value } = e.target;
         setFood({...food, [name]: value})
     };
 
+    //add Food from one the client adds themselves to list
     const handleAddFood = (e) => {
         e.preventDefault();
         props.addFood(food);
@@ -38,10 +46,13 @@ const Dashboard = (props) => {
         });
     };
 
+    //handle text value for textInput for API
     const handleQuery = (e) => {
+        console.log(e.target.value)
         setQuery(e.target.value);
     };
 
+    //add food from API to list from the popup
     const handlePresets = (e, idx) => {
         e.preventDefault();
         props.addFood(restaurants.find((location,index) => {
@@ -66,7 +77,7 @@ const Dashboard = (props) => {
             .then(response => console.log(response))
     }
 
-
+    //fetches the search query from the API and shows the popup on the page
     const fetchRestaurants = async () => {
         const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/search';
         axios.get(url, {
@@ -85,16 +96,20 @@ const Dashboard = (props) => {
         setShowRestaurants(true)});
     };
 
+    //runs the functions for showing the Popup on the page
     const handleAddRestaurants = (e) => {
         e.preventDefault();
         fetchRestaurants();
     };
 
+    //removes an item from the list
     const handleDelete = (e, idx) => {
         e.preventDefault();
         props.removeFood(idx)
     };
-console.log(props.user)
+
+    
+console.log(props.foodItems)
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
@@ -119,6 +134,9 @@ console.log(props.user)
                 <TableHead>
                     <TableRow>
                         <TableCell>
+                            Update Info
+                        </TableCell>
+                        <TableCell>
                             Food Name
                         </TableCell>
                         <TableCell>
@@ -127,16 +145,27 @@ console.log(props.user)
                         <TableCell>
                             Rate Item
                         </TableCell>
-                        <TableCell>Remove Item</TableCell>
+                        <TableCell>
+                            Remove Item
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {props.foodItems.map((food,idx) => (
                         <TableRow key={idx}>
                             <TableCell>
+                                {changeInputs ? <EditIcon onClick={() => setChangeInputs(false)} />
+                                : <EditPopup
+                                changeInputs={changeInputs}
+                                setChangeInputs={setChangeInputs}
+                                />}
+                            </TableCell>
+                            <TableCell 
+                            name= 'food_name'>
                                 {food.food_name}
                             </TableCell>
-                            <TableCell>
+                            <TableCell 
+                            name= 'restaurant'>
                                 {food.restaurant}
                             </TableCell>
                             <TableCell>
@@ -150,7 +179,6 @@ console.log(props.user)
                 </TableBody>
             </Table>
         </Container> 
-    )
-}
+    )}
 
 export default Dashboard;
