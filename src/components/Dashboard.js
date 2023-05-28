@@ -20,16 +20,14 @@ import PopUp from "./Popup";
 import SearchForms from "./SearchForms";
 
 const Dashboard = (props) => {
+    const { token } = props;
     const [food, setFood] = useState({
         food_name: "",
         restaurant: ""});
     const [restaurants, setRestaurants] = useState({});
     const [query, setQuery] = useState('');
     const [showRestaurants, setShowRestaurants] = useState(false);
-
-    const [ foodChange, setFoodChange ] = useState('');
-    const [ restaurantChange, setRestaurantChange ] = useState('')
-    const [ changeInputs, setChangeInputs ] = useState(true);
+    const [ changeInputs, setChangeInputs ] = useState(false);
 
     const handleTextChange = (e) => {
         const { name, value } = e.target;
@@ -43,8 +41,7 @@ const Dashboard = (props) => {
         setFood({
             food_name: "",
             restaurant: ""
-        });
-    };
+        })};
 
     //handle text value for textInput for API
     const handleQuery = (e) => {
@@ -63,14 +60,17 @@ const Dashboard = (props) => {
                 console.log(newList)
                 return newList;
             }}))
-           
         setShowRestaurants(false)
         };
 
     
     const backendAddFood = (foodItem) => {
         console.log(foodItem)
+        const header = {
+            headers: { 'Authorization': `Bearer ${token}`}
+        }
         axios.post("http://localhost:4001/food", {
+                header,
                 food_name: foodItem.title,
                 rating: foodItem.rating
             })
@@ -109,7 +109,8 @@ const Dashboard = (props) => {
     };
 
     
-console.log(props.foodItems)
+console.log(props)
+console.log(token)
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
@@ -154,12 +155,18 @@ console.log(props.foodItems)
                     {props.foodItems.map((food,idx) => (
                         <TableRow key={idx}>
                             <TableCell>
-                                {changeInputs ? <EditIcon onClick={() => setChangeInputs(false)} />
-                                : <EditPopup
-                                changeInputs={changeInputs}
-                                setChangeInputs={setChangeInputs}
-                                />}
+                                { <EditIcon onClick={() => setChangeInputs(true)} />
+                                }
                             </TableCell>
+
+                            {changeInputs && <EditPopup 
+                            open={changeInputs}
+                            setChangeInputs={setChangeInputs}
+                            food={food}
+                            setFood={setFood}
+                            APIlist={restaurants}
+                            upadteList={setRestaurants}/>}
+
                             <TableCell 
                             name= 'food_name'>
                                 {food.food_name}

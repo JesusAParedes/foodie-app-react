@@ -88,6 +88,8 @@ const handleLogin = (e) => {
     })
     .then(response => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
+        console.log(props)
+        props.backendFood(response.data.token);
         setToken(response.data.token);
         navigate("/foodie-app-react/dashboard")
     })

@@ -46,7 +46,7 @@ export const fetchRestaurants = () => {
     };
 };
 
-export const backendFood = () => {
+export const backendFood = (token) => {
     return {
         type: "CHECK_TOKEN",
         value: token
