@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import '../stylings/Dashboard.css'
 import axios from "axios";
+import cookie from 'cookie';
 
 import {
     Container,
@@ -18,12 +19,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditPopup from "./EditPopup";
 import PopUp from "./Popup";
 import SearchForms from "./SearchForms";
+import { backendFood } from "../redux/actions";
 
 const Dashboard = (props) => {
     const { token } = props;
     const [food, setFood] = useState({
         food_name: "",
-        restaurant: ""});
+        restaurant: "",
+        rating: 0});
     const [restaurants, setRestaurants] = useState({});
     const [query, setQuery] = useState('');
     const [showRestaurants, setShowRestaurants] = useState(false);
@@ -34,13 +37,21 @@ const Dashboard = (props) => {
         setFood({...food, [name]: value})
     };
 
+    useEffect(
+        () => {
+            axios.get("http://localhost:4001/food")
+        },[]
+    )
+
     //add Food from one the client adds themselves to list
     const handleAddFood = (e) => {
         e.preventDefault();
         props.addFood(food);
+        backendAddFood(food);
         setFood({
             food_name: "",
-            restaurant: ""
+            restaurant: "",
+            rating: 0
         })};
 
     //handle text value for textInput for API
@@ -64,6 +75,8 @@ const Dashboard = (props) => {
         };
 
     
+
+        //send the info to add the food to the database
     const backendAddFood = (foodItem) => {
         console.log(foodItem)
         const header = {
@@ -71,10 +84,15 @@ const Dashboard = (props) => {
         }
         axios.post("http://localhost:4001/food", {
                 header,
-                food_name: foodItem.title,
+                food_name: foodItem.food_name,
                 rating: foodItem.rating
             })
-            .then(response => console.log(response))
+            .then(response => {
+                document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
+                
+                console.log(response.data.newToken)
+                props.backendFood(response.data.newToken);
+                console.log(response)})
     }
 
     //fetches the search query from the API and shows the popup on the page
@@ -109,8 +127,8 @@ const Dashboard = (props) => {
     };
 
     
-console.log(props)
-console.log(token)
+// console.log(props)
+// console.log(token)
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
