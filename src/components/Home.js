@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -31,14 +31,6 @@ const [ homepage, setHomepage ] = useState(false);
 const [ token, setToken ] = useState('')
 
 const navigate = useNavigate();
-
- useEffect(
-    () => {
-        fetch("http://localhost:4001/users")
-        .then(res => res.json())
-        .then(data => console.log(data))
-    }, []
- )
 
 const handlePage = (e) => {
     e.preventDefault();
@@ -89,9 +81,7 @@ const handleLogin = (e) => {
     })
     .then(response => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 180 });
-        console.log(response.data.token)
         props.backendFood(response.data.token);
-        // props.
         setToken(response.data.token);
         navigate("/foodie-app-react/dashboard")
     })

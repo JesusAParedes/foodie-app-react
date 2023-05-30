@@ -1,11 +1,23 @@
 import { React, useState } from 'react';
 import '../stylings/StarRating.css'
 import StarPurple500SharpIcon from '@mui/icons-material/StarPurple500Sharp';
+import axios from 'axios';
 
-const StarRating = () => {
+const StarRating = (props) => {
+  const { header, food } = props;
 
-const [rating, setRating] = useState(0);
-const [hover, setHover] = useState(0);
+const [rating, setRating] = useState(food.rating);
+const [hover, setHover] = useState(food.rating);
+
+
+const handleClick = (index) => {
+    setRating(index);
+    const foodRating = {
+      Rating: rating
+    }
+    axios.put(`http://localhost:4001/rating/${food.food_id}`, foodRating, header)
+    .then(response => console.log(response))
+}
 
     return (
         <div className="star-rating">
@@ -15,8 +27,8 @@ const [hover, setHover] = useState(0);
             type='button'
             key={index}
             className={index <= ((rating && hover) || hover) ? "on" : "off"}
-            onClick={() => setRating(index)}
-            onMouseEnter={() => setHover(index)}
+            onClick={() => handleClick(index)}
+            onMouseEnter={() => handleClick(index)}
             onMouseLeave={() => setHover(rating)}
             >      
           <span className="star">

@@ -43,7 +43,6 @@ const restaurants = (state = [], action) => {
 const token = (state = token, action) => {
     switch (action.type) {
         case "CHECK_TOKEN":
-            console.log(action)
             return action.value;
         default:
             return state;

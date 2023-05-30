@@ -14,43 +14,40 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StarRating from "./StarRating";
 import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
 
 import EditPopup from "./EditPopup";
 import PopUp from "./Popup";
 import SearchForms from "./SearchForms";
-import { backendFood } from "../redux/actions";
 
 const Dashboard = (props) => {
     const { token } = props;
     const [food, setFood] = useState({
         food_name: "",
         restaurant: "",
-        rating: 0});
+        rating: 0
+    });
     const [restaurants, setRestaurants] = useState({});
     const [query, setQuery] = useState('');
     const [showRestaurants, setShowRestaurants] = useState(false);
-    const [ changeInputs, setChangeInputs ] = useState(false);
-    const [ editFoodInfo, setEditFoodInfo ] = useState({
+    const [changeInputs, setChangeInputs] = useState(false);
+    const [editFoodInfo, setEditFoodInfo] = useState({
         food_name: "",
         restaurant: ""
     })
 
     const header = {
-        headers: { 'Authorization': `Bearer ${token}`}
+        headers: { 'Authorization': `Bearer ${token}` }
     }
 
     const handleTextChange = (e) => {
         const { name, value } = e.target;
-        setFood({...food, [name]: value})
+        setFood({ ...food, [name]: value })
     };
 
     useEffect(
         () => {
-
             props.addFoodList(header);
-                
-        },[]
+        }, []
     )
 
     //add Food from one the client adds themselves to list
@@ -62,45 +59,43 @@ const Dashboard = (props) => {
             food_name: "",
             restaurant: "",
             rating: 0
-        })};
+        })
+    };
 
     //handle text value for textInput for API
     const handleQuery = (e) => {
-        console.log(e.target.value)
         setQuery(e.target.value);
     };
 
     //add food from API to list from the popup
     const handlePresets = (e, idx) => {
         e.preventDefault();
-        props.addFood(restaurants.find((location,index) => {
-            if(idx === index) {
+        props.addFood(restaurants.find((location, index) => {
+            if (idx === index) {
                 const newList = location;
-                Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
+                Object.assign(newList, { food_name: location.title }, { restaurant: location.restaurantChain })
                 backendAddFood(newList);
                 console.log(newList)
                 return newList;
-            }}))
+            }
+        }))
         setShowRestaurants(false)
-        };
+    };
 
-    
 
-        //send the info to add the food to the database
+
+    //send the info to add the food to the database
     const backendAddFood = (foodItem) => {
-        console.log(foodItem)
-        
         axios.post("http://localhost:4001/food", {
-                
-                food_name: foodItem.food_name,
-                rating: foodItem.rating
-            }, header)
+            food_name: foodItem.food_name,
+            restaurant: foodItem.restaurant,
+            rating: foodItem.rating
+        }, header)
             .then(response => {
-                document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
-                
-                console.log(response.data.newToken)
-                props.backendFood(response.data.newToken);
-                console.log(response)})
+                document.cookie = cookie.serialize("token", response.data.newToken, { maxAge: 180 });
+                console.log(response)
+                // props.backendFood(response.data.newToken);
+            })
     }
 
     //fetches the search query from the API and shows the popup on the page
@@ -112,14 +107,16 @@ const Dashboard = (props) => {
                 offset: '1',
                 number: 15,
             },
-             headers: {
+            headers: {
                 'X-RapidAPI-Key': 'c42a0f305emsh3e195a8ca5e4f70p1a4c75jsn478fb0bab10e',
                 'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-            }})
-       .then(res => {
-        console.log(res.data.menuItems)
-        setRestaurants(res.data.menuItems);
-        setShowRestaurants(true)});
+            }
+        })
+            .then(res => {
+                console.log(res.data.menuItems)
+                setRestaurants(res.data.menuItems);
+                setShowRestaurants(true)
+            });
     };
 
     //runs the functions for showing the Popup on the page
@@ -129,36 +126,33 @@ const Dashboard = (props) => {
     };
 
     //removes an item from the list
-    const handleDelete = (e, idx) => {
+    const handleDelete = (e, idx, food) => {
         e.preventDefault();
         props.removeFood(idx);
-        console.log(idx)
-        axios.delete(`http://localhost:4001/food/${idx}`, header)
-        .then(response => console.log(response))   
+        axios.delete(`http://localhost:4001/food/${food.food_id}`, header)
+            .then(response => console.log(response))
     };
-
-console.log(props);
 
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
 
-            <SearchForms 
-            food={food}
-            handleAddRestaurants={handleAddRestaurants}
-            handleQuery={handleQuery}
-            query={query}
-            handleAddFood={handleAddFood}
-            handleTextChange={handleTextChange}
+            <SearchForms
+                food={food}
+                handleAddRestaurants={handleAddRestaurants}
+                handleQuery={handleQuery}
+                query={query}
+                handleAddFood={handleAddFood}
+                handleTextChange={handleTextChange}
             />
-                
-            {showRestaurants && <PopUp 
-            showRestaurants={showRestaurants}
-            setShowRestaurants={setShowRestaurants}
-            open={fetchRestaurants}
-            restaurants={restaurants}
-            close={handlePresets}/>}
-                        
+
+            {showRestaurants && <PopUp
+                showRestaurants={showRestaurants}
+                setShowRestaurants={setShowRestaurants}
+                open={fetchRestaurants}
+                restaurants={restaurants}
+                close={handlePresets} />}
+
             <Table>
                 <TableHead>
                     <TableRow>
@@ -180,10 +174,10 @@ console.log(props);
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.foodItems.map((food,idx) => (
+                    {props.foodItems.map((food, idx) => (
                         <TableRow key={idx}>
                             <TableCell>
-                                { <EditIcon onClick={() => {
+                                {<EditIcon onClick={() => {
                                     setChangeInputs(true)
                                     setEditFoodInfo({
                                         food_name: food.food_name,
@@ -198,38 +192,38 @@ console.log(props);
                             </TableCell>
 
                             {changeInputs && <EditPopup
-                            idx={idx}
-                            header={header}
-                            updateFood= {props.updateFood} 
-                            open={changeInputs}
-                            setChangeInputs={setChangeInputs}
-                            changeInputs={changeInputs}
-                            food={food}
-                            setFood={setFood}
-                            APIlist={restaurants}
-                            upadteList={setRestaurants}
-                            editFoodInfo={editFoodInfo}
-                            setEditFoodInfo={setEditFoodInfo}/>}
+                                idx={idx}
+                                header={header}
+                                updateFood={props.updateFood}
+                                open={changeInputs}
+                                setChangeInputs={setChangeInputs}
+                                changeInputs={changeInputs}
+                                editFoodInfo={editFoodInfo}
+                                setEditFoodInfo={setEditFoodInfo} />}
 
-                            <TableCell 
-                            name= 'food_name'>
+                            <TableCell
+                                name='food_name'>
                                 {food.food_name}
                             </TableCell>
-                            <TableCell 
-                            name= 'restaurant'>
+                            <TableCell
+                                name='restaurant'>
                                 {food.restaurant}
                             </TableCell>
                             <TableCell>
-                                {<StarRating/>}
+                                {<StarRating
+                                    header={header}
+                                    food={food}
+                                />}
                             </TableCell>
                             <TableCell>
-                                <DeleteOutlineOutlinedIcon onClick={(e) => handleDelete(e, idx)}/>
+                                <DeleteOutlineOutlinedIcon onClick={(e) => handleDelete(e, idx, food)} />
                             </TableCell>
                         </TableRow>
-                        ))}
+                    ))}
                 </TableBody>
             </Table>
-        </Container> 
-    )}
+        </Container>
+    )
+}
 
 export default Dashboard;
