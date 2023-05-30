@@ -19,6 +19,27 @@ export const removeFood = (index) => {
     };
 };
 
+export const updateFood = (foodItem) => {
+    return {
+        type: "UPDATE_FOOD",
+        value: foodItem
+    }
+}
+
+export const addFoodList =(header) => {
+    return (dispatch) => {
+        fetch("http://localhost:4001/food/:id", header)
+        .then(res => res.json())
+        .then(response => {
+            const action = {
+                type: "ADD_FOOD_LIST",
+                value: response
+            }
+            dispatch(action);
+        })
+    }
+}
+
 export const fetchRestaurants = () => {
     const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/';
 

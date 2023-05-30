@@ -31,6 +31,14 @@ const Dashboard = (props) => {
     const [query, setQuery] = useState('');
     const [showRestaurants, setShowRestaurants] = useState(false);
     const [ changeInputs, setChangeInputs ] = useState(false);
+    const [ editFoodInfo, setEditFoodInfo ] = useState({
+        food_name: "",
+        restaurant: ""
+    })
+
+    const header = {
+        headers: { 'Authorization': `Bearer ${token}`}
+    }
 
     const handleTextChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +47,9 @@ const Dashboard = (props) => {
 
     useEffect(
         () => {
-            axios.get("http://localhost:4001/food")
+
+            props.addFoodList(header);
+                
         },[]
     )
 
@@ -79,14 +89,12 @@ const Dashboard = (props) => {
         //send the info to add the food to the database
     const backendAddFood = (foodItem) => {
         console.log(foodItem)
-        const header = {
-            headers: { 'Authorization': `Bearer ${token}`}
-        }
+        
         axios.post("http://localhost:4001/food", {
-                header,
+                
                 food_name: foodItem.food_name,
                 rating: foodItem.rating
-            })
+            }, header)
             .then(response => {
                 document.cookie = cookie.serialize("token", response.data.token, { maxAge: 60 });
                 
@@ -123,12 +131,14 @@ const Dashboard = (props) => {
     //removes an item from the list
     const handleDelete = (e, idx) => {
         e.preventDefault();
-        props.removeFood(idx)
+        props.removeFood(idx);
+        console.log(idx)
+        axios.delete(`http://localhost:4001/food/${idx}`, header)
+        .then(response => console.log(response))   
     };
 
-    
-// console.log(props)
-// console.log(token)
+console.log(props);
+
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
@@ -173,17 +183,33 @@ const Dashboard = (props) => {
                     {props.foodItems.map((food,idx) => (
                         <TableRow key={idx}>
                             <TableCell>
-                                { <EditIcon onClick={() => setChangeInputs(true)} />
+                                { <EditIcon onClick={() => {
+                                    setChangeInputs(true)
+                                    setEditFoodInfo({
+                                        food_name: food.food_name,
+                                        restaurant: food.restaurant,
+                                        food_id: food.food_id,
+                                        user_id: food.user_id,
+                                        rating: food.rating
+                                    })
+                                }}
+                                />
                                 }
                             </TableCell>
 
-                            {changeInputs && <EditPopup 
+                            {changeInputs && <EditPopup
+                            idx={idx}
+                            header={header}
+                            updateFood= {props.updateFood} 
                             open={changeInputs}
                             setChangeInputs={setChangeInputs}
+                            changeInputs={changeInputs}
                             food={food}
                             setFood={setFood}
                             APIlist={restaurants}
-                            upadteList={setRestaurants}/>}
+                            upadteList={setRestaurants}
+                            editFoodInfo={editFoodInfo}
+                            setEditFoodInfo={setEditFoodInfo}/>}
 
                             <TableCell 
                             name= 'food_name'>
