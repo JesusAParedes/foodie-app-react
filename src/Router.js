@@ -25,9 +25,9 @@ const ProtectedRoute = (props) => {
 const Router = () => {
     return (
         <Routes>
-            <Route path="/foodie-app-react" element={<Home/>} />
-            <Route path="/foodie-app-react/signup" element={<SignUp/>} />
-            <Route path="/foodie-app-react/dashboard" element={<ProtectedRoute component={ Dashboard }/>} />
+            <Route path="/" element={<Home/>} />
+            <Route path="/signup" element={<SignUp/>} />
+            <Route path="/dashboard" element={<ProtectedRoute component={ Dashboard }/>} />
         </Routes>
     );
 };
