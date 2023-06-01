@@ -15,7 +15,7 @@ const handleClick = (index) => {
     const foodRating = {
       Rating: rating
     }
-    axios.put(`http://localhost:4001/rating/${food.food_id}`, foodRating, header)
+    axios.put(`https://foodie-app-backend-capstone.herokuapp.com/rating/${food.food_id}`, foodRating, header)
     .then(response => console.log(response))
 }
 

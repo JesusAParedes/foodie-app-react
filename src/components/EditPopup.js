@@ -25,7 +25,7 @@ const EditPopup = (props) => {
     };
 
     const submitChanges = (idx) => {
-        axios.put(`http://localhost:4001/food/${editFoodInfo.food_id}`,
+        axios.put(`https://foodie-app-backend-capstone.herokuapp.com/${editFoodInfo.food_id}`,
             editFoodInfo,
             header)
             .then(response => console.log(response));

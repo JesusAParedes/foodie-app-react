@@ -50,7 +50,7 @@ const NavBar = () => {
           <AccountCircle />
           </IconButton>
           <Button color="inherit">
-            <Link to='/foodie-app-react' 
+            <Link to='/' 
             style={{textDecoration: 'none', color: 'white'}}>
               LOGOUT</Link>
             </Button>

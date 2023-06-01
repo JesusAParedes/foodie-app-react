@@ -86,7 +86,7 @@ const Dashboard = (props) => {
 
     //send the info to add the food to the database
     const backendAddFood = (foodItem) => {
-        axios.post("http://localhost:4001/food", {
+        axios.post("https://foodie-app-backend-capstone.herokuapp.com/food", {
             food_name: foodItem.food_name,
             restaurant: foodItem.restaurant,
             rating: foodItem.rating
@@ -129,7 +129,7 @@ const Dashboard = (props) => {
     const handleDelete = (e, idx, food) => {
         e.preventDefault();
         props.removeFood(idx);
-        axios.delete(`http://localhost:4001/food/${food.food_id}`, header)
+        axios.delete(`https://foodie-app-backend-capstone.herokuapp.com/${food.food_id}`, header)
             .then(response => console.log(response))
     };
 

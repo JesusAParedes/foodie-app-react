@@ -57,7 +57,7 @@ const handleCreateUser = (e) => {
     // document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
     //    navigate("/foodie-app-react/dashboard")
 
-       axios.post("http://localhost:4001/users", {
+       axios.post("https://foodie-app-backend-capstone.herokuapp.com/users", {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -75,7 +75,7 @@ const handleCreateUser = (e) => {
 
 const handleLogin = (e) => {
     e.preventDefault()
-    axios.post("http://localhost:4001/login", {
+    axios.post("https://foodie-app-backend-capstone.herokuapp.com/login", {
         username: user.username,
         password: user.password
     })
