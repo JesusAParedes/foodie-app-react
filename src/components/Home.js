@@ -68,7 +68,7 @@ const handleCreateUser = (e) => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 180 });
         props.backendFood(response.data.token);
         props.addUser(newUser.first_name)
-        navigate("/foodie-app-react/dashboard")
+        navigate("/dashboard")
        })
 
     };
@@ -83,7 +83,7 @@ const handleLogin = (e) => {
         document.cookie = cookie.serialize("token", response.data.token, { maxAge: 180 });
         props.backendFood(response.data.token);
         setToken(response.data.token);
-        navigate("/foodie-app-react/dashboard")
+        navigate("/dashboard")
     })
     
     };

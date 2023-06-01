@@ -27,7 +27,7 @@ const NavBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href="/foodie-app-react"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
