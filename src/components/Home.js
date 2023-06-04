@@ -50,7 +50,8 @@ const handleUser = (e) => {
 const handleCreateUser = (e) => {
     e.preventDefault()
        axios.post("https://foodie-app-backend-capstone.herokuapp.com/users", {
-        header: "Access-Control-Allow-Methods",
+        Origin: 'https://foodie-app-react.vercel.app',
+        header: "Access-Control-Allow-Origin",
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -69,7 +70,8 @@ const handleCreateUser = (e) => {
 const handleLogin = (e) => {
     e.preventDefault()
     axios.post("https://foodie-app-backend-capstone.herokuapp.com/login", {
-        header: "Access-Control-Allow-Methods",
+        Origin: 'https://foodie-app-react.vercel.app',
+        header: "Access-Control-Allow-Origin",
         username: user.username,
         password: user.password
     })
