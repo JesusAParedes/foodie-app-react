@@ -21,13 +21,5 @@
                     "Access-Control-Allow-Origin": "*"
                 }
             }
-        ],
-        "trailingSlash": false,
-        "cleanUrls": true,
-        "rewrites": [
-            {
-                "source": "/(.*)",
-                "destination": "/"
-            }
         ]
     }
