@@ -52,6 +52,7 @@ const handleCreateUser = (e) => {
        axios.post("https://foodie-app-backend-capstone.herokuapp.com/users", {
         origin: 'https://foodie-app-react.vercel.app',
         header: "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Origin": 'https://foodie-app-react.vercel.app',
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
