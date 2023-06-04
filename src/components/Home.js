@@ -70,7 +70,7 @@ const handleCreateUser = (e) => {
 const handleLogin = (e) => {
     e.preventDefault()
     axios.post("https://foodie-app-backend-capstone.herokuapp.com/login", {
-        Origin: 'https://foodie-app-react.vercel.app',
+        origin: 'https://foodie-app-react.vercel.app',
         header: "Access-Control-Allow-Origin",
         username: user.username,
         password: user.password
