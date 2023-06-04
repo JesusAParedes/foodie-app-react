@@ -39,10 +39,6 @@ const handlePage = (e) => {
 
 const handleNewAccount = (e) => {
         const { name, value } = e.target;
-        // const newList = location;
-        // Object.assign(newList, {food_name: location.title}, {restaurant: location.restaurantChain})
-        // return newList;
-        console.log(name)
         setNewUser({...newUser, [name]: value})
 };
 
@@ -53,11 +49,8 @@ const handleUser = (e) => {
 
 const handleCreateUser = (e) => {
     e.preventDefault()
-    
-    // document.cookie = cookie.serialize("loggedIn", "true", { maxAge: 60 });
-    //    navigate("/foodie-app-react/dashboard")
-
        axios.post("https://foodie-app-backend-capstone.herokuapp.com/users", {
+        header: "Access-Control-Allow-Methods",
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -76,6 +69,7 @@ const handleCreateUser = (e) => {
 const handleLogin = (e) => {
     e.preventDefault()
     axios.post("https://foodie-app-backend-capstone.herokuapp.com/login", {
+        header: "Access-Control-Allow-Methods",
         username: user.username,
         password: user.password
     })
