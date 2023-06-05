@@ -28,7 +28,7 @@ export const updateFood = (foodItem) => {
 
 export const addFoodList =(header) => {
     return (dispatch) => {
-        fetch("https://foodie-app-six.vercel.app/:id", header)
+        fetch(`https://foodie-app-six.vercel.app/${food.food_id}`, header)
         .then(res => res.json())
         .then(response => {
             const action = {
