@@ -49,7 +49,7 @@ const handleUser = (e) => {
 
 const handleCreateUser = (e) => {
     e.preventDefault()
-       axios.post("https://foodie-app-backend-capstone.herokuapp.com/users", {
+       axios.post("https://foodie-app-six.vercel.app/users", {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -67,7 +67,7 @@ const handleCreateUser = (e) => {
 
 const handleLogin = (e) => {
     e.preventDefault()
-    axios.post("https://foodie-app-backend-capstone.herokuapp.com/login", {
+    axios.post("https://foodie-app-six.vercel.app/login", {
         // origin: 'https://foodie-app-react.vercel.app',
         // header: "Access-Control-Allow-Origin",
         username: user.username,
