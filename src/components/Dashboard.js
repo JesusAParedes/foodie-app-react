@@ -46,7 +46,7 @@ const Dashboard = (props) => {
 
     useEffect(
         () => {
-            props.addFoodList(header, food.food_id);
+            props.addFoodList(header);
         }, []
     )
 

@@ -16,7 +16,7 @@ const mapDispatchtoProps = (dispatch) => {
         fetchRestaurants: () => dispatch(fetchRestaurants()),
         addFood: (food) => dispatch(addFood(food)),
         removeFood: (index) => dispatch(removeFood(index)),
-        addFoodList: (header) => dispatch(addFoodList(header,food.food_id)),
+        addFoodList: (header) => dispatch(addFoodList(header)),
         backendFood: (token) => dispatch(backendFood(token)),
         updateFood: (foodItem) => dispatch(updateFood(foodItem))
     }
