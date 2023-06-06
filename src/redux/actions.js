@@ -26,9 +26,10 @@ export const updateFood = (foodItem) => {
     }
 }
 
-export const addFoodList =(header) => {
+export const addFoodList =(header, food) => {
     return (dispatch) => {
-        fetch('https://foodie-app-six.vercel.app/:id', header)
+        console.log(food.food_id)
+        fetch(`https://foodie-app-six.vercel.app/food/${food.food_id}`, header)
         .then(res => res.json())
         .then(response => {
             const action = {
