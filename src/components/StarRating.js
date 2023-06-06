@@ -11,7 +11,7 @@ const [hover, setHover] = useState(food.rating);
 
 
 const handleClick = (index) => {
-    setRating(index);
+    setRating(index)
     const foodRating = {
       Rating: rating
     }
@@ -28,7 +28,7 @@ const handleClick = (index) => {
             key={index}
             className={index <= ((rating && hover) || hover) ? "on" : "off"}
             onClick={() => handleClick(index)}
-            onMouseEnter={() => handleClick(index)}
+            onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
             >      
           <span className="star">
