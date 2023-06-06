@@ -11,11 +11,12 @@ const [hover, setHover] = useState(food.rating);
 
 
 const handleClick = (index) => {
+    console.log(header)
     setRating(index)
     const foodRating = {
       Rating: rating
     }
-    axios.put(`https://foodie-app-six.vercel.app/rating/${food.food_id}`, foodRating, header)
+    axios.put(`https://foodie-app-six.vercel.app/food/rating/${food.food_id}`, foodRating, header)
     .then(response => console.log(response))
 }
 
