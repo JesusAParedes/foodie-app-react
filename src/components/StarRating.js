@@ -10,9 +10,7 @@ const [rating, setRating] = useState(food.rating);
 const [hover, setHover] = useState(food.rating);
 
 
-const handleClick = (index) => {
-    console.log(header)
-    setRating(index)
+const handleClick = ( rating) => {
     const foodRating = {
       Rating: rating
     }
@@ -28,9 +26,11 @@ const handleClick = (index) => {
             type='button'
             key={index}
             className={index <= ((rating && hover) || hover) ? "on" : "off"}
-            onClick={() => handleClick(index)}
-            onMouseEnter={() => setHover(index)}
-            onMouseLeave={() => setHover(rating)}
+            onClick={() => handleClick(rating)}
+            onMouseEnter={() => {
+              setHover(index)
+              setRating(index)}}
+            // onMouseLeave={() => setHover(rating)}
             >      
           <span className="star">
             <StarPurple500SharpIcon fontSize='medium'/>
