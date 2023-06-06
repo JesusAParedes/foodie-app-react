@@ -129,7 +129,7 @@ const Dashboard = (props) => {
     const handleDelete = (e, idx, food) => {
         e.preventDefault();
         props.removeFood(idx);
-        axios.delete(`https://foodie-app-six.vercel.app/${food.food_id}`, header)
+        axios.delete(`https://foodie-app-six.vercel.app/food/${food.food_id}`, header)
             .then(response => console.log(response))
     };
 
