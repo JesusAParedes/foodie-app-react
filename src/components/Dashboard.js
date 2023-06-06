@@ -211,6 +211,7 @@ const Dashboard = (props) => {
                             </TableCell>
                             <TableCell>
                                 {<StarRating
+                                    idx={idx}
                                     header={header}
                                     food={food}
                                 />}

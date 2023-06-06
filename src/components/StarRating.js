@@ -4,7 +4,7 @@ import StarPurple500SharpIcon from '@mui/icons-material/StarPurple500Sharp';
 import axios from 'axios';
 
 const StarRating = (props) => {
-  const { header, food } = props;
+  const { header, food, idx } = props;
 
 const [rating, setRating] = useState(food.rating);
 const [hover, setHover] = useState(food.rating);
