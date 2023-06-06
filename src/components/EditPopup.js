@@ -25,7 +25,7 @@ const EditPopup = (props) => {
     };
 
     const submitChanges = (idx) => {
-        axios.put(`https://foodie-app-six.vercel.app/${editFoodInfo.food_id}`,
+        axios.put(`https://foodie-app-six.vercel.app/food/${editFoodInfo.food_id}`,
             editFoodInfo,
             header)
             .then(response => console.log(response));
