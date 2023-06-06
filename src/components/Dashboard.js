@@ -93,7 +93,7 @@ const Dashboard = (props) => {
         }, header)
             .then(response => {
                 document.cookie = cookie.serialize("token", response.data.newToken, { maxAge: 180 });
-                console.log(response)
+                
                 // props.backendFood(response.data.newToken);
             })
     }
