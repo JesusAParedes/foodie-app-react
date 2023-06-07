@@ -6,40 +6,43 @@ import axios from 'axios';
 const StarRating = (props) => {
   const { header, food, idx } = props;
 
-const [rating, setRating] = useState(food.rating);
-const [hover, setHover] = useState(food.rating);
+  const [rating, setRating] = useState(food.rating);
+  const [hover, setHover] = useState(food.rating);
 
 
-const handleClick = ( rating) => {
+  const handleClick = (rating) => {
     const foodRating = {
       Rating: rating
     }
     axios.put(`https://foodie-app-six.vercel.app/food/rating/${food.food_id}`, foodRating, header)
-    .then(response => console.log(response))
-}
+      .then(response => console.log(response))
+      .catch(error => console.error('There was an error!', error))
+  }
 
-    return (
-        <div className="star-rating">
-      {[...Array(5)].map((star, index) => {  index += 1;      
+  return (
+    <div className="star-rating">
+      {[...Array(5)].map((star, index) => {
+        index += 1;
         return (
-            <button
+          <button
             type='button'
             key={index}
             className={index <= ((rating && hover) || hover) ? "on" : "off"}
             onClick={() => handleClick(rating)}
             onMouseEnter={() => {
               setHover(index)
-              setRating(index)}}
-            // onMouseLeave={() => setHover(rating)}
-            >      
-          <span className="star">
-            <StarPurple500SharpIcon fontSize='medium'/>
+              setRating(index)
+            }}
+          // onMouseLeave={() => setHover(rating)}
+          >
+            <span className="star">
+              <StarPurple500SharpIcon fontSize='medium' />
             </span>
-          </button>         
+          </button>
         );
       })}
-    </div>  
-    )
+    </div>
+  )
 }
 
 export default StarRating;

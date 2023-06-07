@@ -35,6 +35,8 @@ const Dashboard = (props) => {
         restaurant: ""
     })
 
+    
+
     const header = {
         headers: { 'Authorization': `Bearer ${token}` }
     }
@@ -43,6 +45,7 @@ const Dashboard = (props) => {
         const { name, value } = e.target;
         setFood({ ...food, [name]: value })
     };
+
 
     useEffect(
         () => {
@@ -92,7 +95,8 @@ const Dashboard = (props) => {
             rating: foodItem.rating
         }, header)
             .then(response => {
-                document.cookie = cookie.serialize("token", response.data.newToken, { maxAge: 180 });
+                // document.cookie = cookie.serialize("token", response.data.newToken, { maxAge: 180 });
+                console.log(response)
                 
                 // props.backendFood(response.data.newToken);
             })
@@ -131,8 +135,12 @@ const Dashboard = (props) => {
         props.removeFood(idx);
         axios.delete(`https://foodie-app-six.vercel.app/food/${food.food_id}`, header)
             .then(response => console.log(response))
-    };
 
+        props.addFood((prevFood) => prevFood.filter((a, index) => index !== idx))
+
+        };
+        
+        
     return (
         <Container>
             <h3>Come in, {props.user.first_name}</h3>
@@ -175,7 +183,7 @@ const Dashboard = (props) => {
                 </TableHead>
                 <TableBody>
                     {props.foodItems.map((food, idx) => (
-                        <TableRow key={idx}>
+                        <TableRow key={food.food_id}>
                             <TableCell>
                                 {<EditIcon onClick={() => {
                                     setChangeInputs(true)
@@ -211,9 +219,11 @@ const Dashboard = (props) => {
                             </TableCell>
                             <TableCell>
                                 {<StarRating
+                                    key={food.food_id}
                                     idx={idx}
                                     header={header}
                                     food={food}
+                                    onClick={() => handleDelete(idx)}
                                 />}
                             </TableCell>
                             <TableCell>

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router";
+
 export const addUser = (user) => {
     return {
         type: "ADD_USER",
@@ -36,6 +38,9 @@ export const addFoodList =(header, food) => {
                 value: response
             }
             dispatch(action);
+        })
+        .catch(error => {
+            alert("Timed out! Please log back in.")
         })
     }
 }
