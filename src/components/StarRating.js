@@ -4,17 +4,20 @@ import StarPurple500SharpIcon from '@mui/icons-material/StarPurple500Sharp';
 import axios from 'axios';
 
 const StarRating = (props) => {
-  const { header, food, idx } = props;
+  const { header, food, idx, id, setFood } = props;
 
   const [rating, setRating] = useState(food.rating);
   const [hover, setHover] = useState(food.rating);
 
 
   const handleClick = (rating) => {
+    // console.log(setFood())
+    console.log(food)
+    console.log(food.food_id)
     const foodRating = {
       Rating: rating
     }
-    axios.put(`https://foodie-app-six.vercel.app/food/rating/${food.food_id}`, foodRating, header)
+    axios.put(`https://foodie-app-six.vercel.app/food/rating/${id}`, foodRating, header)
       .then(response => console.log(response))
       .catch(error => console.error('There was an error!', error))
   }
@@ -28,7 +31,12 @@ const StarRating = (props) => {
             type='button'
             key={index}
             className={index <= ((rating && hover) || hover) ? "on" : "off"}
-            onClick={() => handleClick(rating)}
+            onClick={() => {
+              setFood({
+                [rating]: food.rating
+              });
+              handleClick(rating)
+            }}
             onMouseEnter={() => {
               setHover(index)
               setRating(index)

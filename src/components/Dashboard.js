@@ -50,7 +50,8 @@ const Dashboard = (props) => {
     useEffect(
         () => {
             props.addFoodList(header, food);
-        }, []
+            console.log(props.foodItems)
+        }, [ props.foodItems ]
     )
 
     //add Food from one the client adds themselves to list
@@ -58,11 +59,14 @@ const Dashboard = (props) => {
         e.preventDefault();
         props.addFood(food);
         backendAddFood(food);
+        // props.addFoodList(header, food)
         setFood({
             food_name: "",
+            food_id: 0,
             restaurant: "",
             rating: 0
         })
+
     };
 
     //handle text value for textInput for API
@@ -82,7 +86,10 @@ const Dashboard = (props) => {
                 return newList;
             }
         }))
+
+        
         setShowRestaurants(false)
+        console.log(props.foodItems)
     };
 
 
@@ -95,11 +102,9 @@ const Dashboard = (props) => {
             rating: foodItem.rating
         }, header)
             .then(response => {
-                // document.cookie = cookie.serialize("token", response.data.newToken, { maxAge: 180 });
                 console.log(response)
-                
-                // props.backendFood(response.data.newToken);
             })
+
     }
 
     //fetches the search query from the API and shows the popup on the page
@@ -117,7 +122,7 @@ const Dashboard = (props) => {
             }
         })
             .then(res => {
-                console.log(res.data.menuItems)
+                // console.log(res.data.menuItems)
                 setRestaurants(res.data.menuItems);
                 setShowRestaurants(true)
             });
@@ -219,11 +224,16 @@ const Dashboard = (props) => {
                             </TableCell>
                             <TableCell>
                                 {<StarRating
-                                    key={food.food_id}
+                                    // onClick={() => setFood({
+                                    //     food_id: food.food_id,
+                                    //     user_id: food.user_id,
+                                    //     rating: food.rating
+                                    // })}
+                                    id={food.food_id}
                                     idx={idx}
                                     header={header}
                                     food={food}
-                                    onClick={() => handleDelete(idx)}
+                                    setFood={setFood}
                                 />}
                             </TableCell>
                             <TableCell>
