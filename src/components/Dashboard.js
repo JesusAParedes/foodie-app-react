@@ -51,7 +51,7 @@ const Dashboard = (props) => {
         () => {
             props.addFoodList(header, food);
             console.log(props.foodItems)
-        }, [ props.foodItems ]
+        }, [ props.foodItems.length ]
     )
 
     //add Food from one the client adds themselves to list
